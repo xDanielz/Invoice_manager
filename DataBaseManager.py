@@ -1,3 +1,6 @@
+from UseSqlite3db import *
+
+
 class DataBaseManager:
 
     def __init__(self, dbname: str, tablename: str):
