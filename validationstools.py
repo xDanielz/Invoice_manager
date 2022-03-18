@@ -19,3 +19,15 @@ def date_validator(date):
         return 0
     
     return 1
+
+def installments_validator(installments):
+    paid, total = installments.split('/')
+    try:
+        paid  = int(paid)
+        total = int(total)
+    except ValueError:
+        return 0
+    if paid <= total:
+        return 1
+    return 0
+         
