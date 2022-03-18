@@ -7,18 +7,22 @@ class InvoiceManager(DataBaseManager):
 
     def __init__(self, dbname, tablename) -> None:
         super().__init__(dbname, tablename)
+        self.id_val = id_validator(dbname, tablename='USERS')
 
     def save(self, user_id, date, purchase_id, installments, price):
-        if not id_validator(user_id):
-            pass
+
+        if not self.id_val(user_id):
+            raise InvalidId('campo "user_id" inválido')
+
         if not date_validator(date):
-            pass
+            raise InvalidDate('campo "date" inválida')
+
         if not installments_validator(installments):
-            pass
+            raise InvalidInstallments('campo "installments" inválido')
+
         if not isinstance(price, float):
-            pass
+            raise ValueError('campo "price" inválido')
         
-            
         super().save({
             'user_id'     :user_id,
             'date'        :date,
