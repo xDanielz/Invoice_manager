@@ -30,17 +30,18 @@ class InvoiceManager(DataBaseManager):
         super().view(**kwargs)
 
     def validation(**kwargs):
-        if not id_val(kwargs['user_id'], 'users'):
-            raise InvalidId('campo "user_id" inválido')
-
-        if not date_validator(kwargs['date']):
-            raise InvalidDate('campo "date" inválida')
-
-        if not installments_validator(['installments']):
-            raise InvalidInstallments('campo "installments" inválido')
-
-        if not isinstance(kwargs['price'], float):
-            raise ValueError('campo "price" inválido')
+        if 'user_id' in kwargs:               
+            if not id_val(kwargs['user_id'], 'users'):
+                raise InvalidId('campo "user_id" inválido')
+        if 'date' in kwargs:            
+            if not date_validator(kwargs['date']):
+                raise InvalidDate('campo "date" inválida')
+        if 'installments' in kwargs:            
+            if not installments_validator(['installments']):
+                raise InvalidInstallments('campo "installments" inválido')
+        if 'price' in kwargs:            
+            if not isinstance(kwargs['price'], float):
+                raise ValueError('campo "price" inválido')
 
 class UserManager(DataBaseManager):
 
@@ -48,14 +49,17 @@ class UserManager(DataBaseManager):
         _TABLE_NAME = 'users'
         super().__init__(DATA_BASE_NAME, _TABLE_NAME)
 
-    def save(self, name, debt, paid_out):
+    def save(self, **kwargs):
         pass
 
-    def delete(self, user_id):
+    def delete(self, _id):
         pass
 
-    def update(self, user_id, debt=None, paid_out=None):
+    def update(self, **kwargs):
         pass
 
     def view(self):
+        super().view_all()
+
+    def validation(self, kwargs):
         pass  
