@@ -1,5 +1,6 @@
 import DataBaseManager
 from validationstools import *
+from InvoiceExceptions import *
 
 
 class InvoiceManager(DataBaseManager):
