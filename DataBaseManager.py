@@ -9,7 +9,7 @@ class DataBaseManager:
         self.excsql    = cursor_exc(dbname)
 
     def save(self, **kwargs):
-        sql = ''' INSERT INTO {tablename} ({keys}) VALUES ({values})  '''
+        sql = ''' INSERT INTO {tablename} ({keys}) VALUES (NULL,{values}) '''
 
         sql.format(
             tablename = self.tablename,

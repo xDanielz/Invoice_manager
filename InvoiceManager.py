@@ -4,7 +4,7 @@ from InvoiceExceptions import *
 
 
 DATA_BASE_NAME = 'INVOICE'
-id_val = id_validator(DATA_BASE_NAME, 'users')
+id_val = id_validator(DATA_BASE_NAME)
 
 class InvoiceManager(DataBaseManager):
 
@@ -12,41 +12,35 @@ class InvoiceManager(DataBaseManager):
         _TABLE_NAME = 'invoice'
         super().__init__(DATA_BASE_NAME, _TABLE_NAME)
 
-    def save(self, user_id, date, purchase_id, installments, price):
+    def save(self, **kwargs):
+        self.validation(**kwargs)
+        super().save(**kwargs)
+            
+    def delete(self, _id):
+        if not id_val(_id, self._TABLE_NAME):
+            raise InvalidId('campo "id" inválido')
+        super().delete(_id)
 
-        if not id_val(user_id):
+    def update(self, _id, **kwargs):
+        self.validation(**kwargs)
+        super().update(_id, **kwargs)
+
+    def view(self, **kwargs):
+        self.validation(**kwargs)
+        super().view(**kwargs)
+
+    def validation(**kwargs):
+        if not id_val(kwargs['user_id'], 'users'):
             raise InvalidId('campo "user_id" inválido')
 
-        if not date_validator(date):
+        if not date_validator(kwargs['date']):
             raise InvalidDate('campo "date" inválida')
 
-        if not installments_validator(installments):
+        if not installments_validator(['installments']):
             raise InvalidInstallments('campo "installments" inválido')
 
-        if not isinstance(price, float):
+        if not isinstance(kwargs['price'], float):
             raise ValueError('campo "price" inválido')
-        
-        super().save({
-            'user_id'     :user_id,
-            'date'        :date,
-            'purchase_id' :purchase_id,
-            'installments':installments,
-            'price'       :price
-            })
-            
-    def delete(self, user_id):
-        
-        if not id_val(user_id):
-            raise InvalidId('campo "user_id" inválido')
-
-        super().delete(user_id)
-
-    def update(self, user_id, date=None, purchase_id=None, installments=None, price=None):
-        pass
-
-    def view(self, user_id, date=None, purchase_id=None, installments=None, price=None):
-        pass
-
 
 class UserManager(DataBaseManager):
 

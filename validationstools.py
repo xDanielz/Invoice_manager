@@ -2,9 +2,9 @@ from datetime import datetime
 from UseSqlite3db import UseSqlite3db
 
 
-def id_validator(dbname, tablename):
+def id_validator(dbname):
 
-    def func(_id):
+    def func(_id, tablename):
         sql = f'SELECT FROM {tablename} * WHERE ID=?'
         with UseSqlite3db(dbname) as cursor:
             result = cursor.execute(sql, _id)
