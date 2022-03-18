@@ -1,15 +1,30 @@
 import DataBaseManager
+from validationstools import *
 
 
 class InvoiceManager(DataBaseManager):
-    def __init__(self, dbname: str, tablename: str) -> None:
-        super().__init__(dbname, tablename)
 
     def save(self, user_id, date, purchase_id, installments, price):
-        pass
-
+        if not id_validator(user_id):
+            pass
+        if not date_validator(date):
+            pass
+        if not installments_validator(installments):
+            pass
+        if not isinstance(price, float):
+            pass
+        
+            
+        super().save({
+            'user_id'     :user_id,
+            'date'        :date,
+            'purchase_id' :purchase_id,
+            'installments':installments,
+            'price'       :price
+            })
+            
     def delete(self, user_id):
-        pass
+        pass 
 
     def update(self, user_id, date=None, purchase_id=None, installments=None, price=None):
         pass
@@ -19,8 +34,6 @@ class InvoiceManager(DataBaseManager):
 
 
 class UserManager(DataBaseManager):
-    def __init__(self, dbname: str, tablename: str) -> None:
-        super().__init__(dbname, tablename)
 
     def save(self, name, debt, paid_out):
         pass

@@ -9,23 +9,23 @@ class DataBaseManager:
         self.excsql    = cursor_exc(dbname)
 
     def save(self, **kwargs):
-        sql = '''INSERT INTO {tablename} ({keys}) VALUES ({values})'''
+        sql = ''' INSERT INTO {tablename} ({keys}) VALUES ({values})  '''
 
         sql.format(
-        tablename = self.tablename,
-        keys = ','.join(kwargs.keys()),
-        values = ','.join('?' for _ in len(kwargs))
+            tablename = self.tablename,
+            keys = ','.join(kwargs.keys()),
+            values = ','.join('?' for _ in len(kwargs))
         )
 
         self.excsql(sql, kwargs.values())
 
     def delete(self, _id):
-        sql = '''DELETE FROM {tablename} WHERE ID = ?'''
+        sql = ''' DELETE FROM {tablename} WHERE ID = ? '''
         sql.format(tablename = self.tablename)
         self.excsql(sql, (_id,))
 
     def update(self, _id, **kwargs):
-        sql = '''UPDATE {tablename} SET {attrs} WHERE = ?'''
+        sql = ''' UPDATE {tablename} SET {attrs} WHERE = ? '''
         attrs = []
 
         for k in kwargs:
@@ -40,7 +40,7 @@ class DataBaseManager:
 
 
     def view(self, **kwargs):
-        sql = ''' SELECT * FROM {tablename} WHERE {attrs}'''
+        sql = ''' SELECT * FROM {tablename} WHERE {attrs} '''
         attrs = []
 
         for k in kwargs:
@@ -53,4 +53,12 @@ class DataBaseManager:
 
         with UseSqlite3db(self.dbname) as cursor:
             data = cursor.execute(sql, kwargs.values())
+            return data.fetchall()
+    
+    def view_all(self):
+        sql = ''' SELECT * FROM {tablename} '''
+        sql.format(tablename = self.tablename)
+
+        with UseSqlite3db(self.dbname) as cursor:
+            data = cursor.execute(sql)
             return data.fetchall()
