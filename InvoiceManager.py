@@ -3,7 +3,7 @@ from validationstools import *
 
 
 class InvoiceManager(DataBaseManager):
-
+    
     def save(self, user_id, date, purchase_id, installments, price):
         if not id_validator(user_id):
             pass
