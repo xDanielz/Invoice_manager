@@ -4,6 +4,9 @@ from validationstools import *
 
 class InvoiceManager(DataBaseManager):
 
+    def __init__(self, dbname, tablename) -> None:
+        super().__init__(dbname, tablename)
+
     def save(self, user_id, date, purchase_id, installments, price):
         if not id_validator(user_id):
             pass
@@ -34,6 +37,9 @@ class InvoiceManager(DataBaseManager):
 
 
 class UserManager(DataBaseManager):
+
+    def __init__(self, dbname, tablename) -> None:
+        super().__init__(dbname, tablename)
 
     def save(self, name, debt, paid_out):
         pass
