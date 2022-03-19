@@ -39,7 +39,18 @@ class RegisterManager(InvoiceManager):
         super().__init__(self._TABLE_NAME)
 
     def validation(self, **kwargs):
-        return super().validation(**kwargs)
+        if 'user_id' in kwargs:               
+            if not id_val(kwargs['user_id'], 'users'):
+                raise InvalidId('campo "user_id" inválido')
+        if 'date' in kwargs:            
+            if not date_validator(kwargs['date']):
+                raise InvalidDate('campo "date" inválida')
+        if 'installments' in kwargs:            
+            if not installments_validator(kwargs['installments']):
+                raise InvalidInstallments('campo "installments" inválido')
+        if 'price' in kwargs:            
+            if not float_validator(kwargs['price']):
+                raise ValueError('campo "price" inválido')
 
 
 class UserManager(InvoiceManager):
@@ -51,4 +62,7 @@ class UserManager(InvoiceManager):
         super().view_all()
 
     def validation(self, **kwargs):
-        pass  
+        for attr in 'debt', 'paid':
+            if attr in kwargs:               
+                if not float_validator(kwargs[attr]):
+                    raise ValueError(f'campo {attr} inválido') 
