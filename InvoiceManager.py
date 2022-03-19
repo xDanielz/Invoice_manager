@@ -8,9 +8,9 @@ id_val = id_validator(DATA_BASE_NAME)
 
 class InvoiceManager(DataBaseManager):
 
-    def __init__(self) -> None:
-        _TABLE_NAME = 'register'
-        super().__init__(DATA_BASE_NAME, _TABLE_NAME)
+    def __init__(self, table_name) -> None:
+        self._TABLE_NAME = table_name
+        super().__init__(DATA_BASE_NAME, self._TABLE_NAME)
 
     def save(self, **kwargs):
         self.validation(**kwargs)
@@ -27,39 +27,28 @@ class InvoiceManager(DataBaseManager):
 
     def view(self, **kwargs):
         self.validation(**kwargs)
-        super().view(**kwargs)
+        return super().view(**kwargs)
 
-    def validation(**kwargs):
-        if 'user_id' in kwargs:               
-            if not id_val(kwargs['user_id'], 'users'):
-                raise InvalidId('campo "user_id" inválido')
-        if 'date' in kwargs:            
-            if not date_validator(kwargs['date']):
-                raise InvalidDate('campo "date" inválida')
-        if 'installments' in kwargs:            
-            if not installments_validator(['installments']):
-                raise InvalidInstallments('campo "installments" inválido')
-        if 'price' in kwargs:            
-            if not isinstance(kwargs['price'], float):
-                raise ValueError('campo "price" inválido')
+    def validation(self, **kwargs):
+        pass
 
-class UserManager(DataBaseManager):
 
+class RegisterManager(InvoiceManager):
     def __init__(self) -> None:
-        _TABLE_NAME = 'users'
-        super().__init__(DATA_BASE_NAME, _TABLE_NAME)
+        self._TABLE_NAME = 'register'
+        super().__init__(self._TABLE_NAME)
 
-    def save(self, **kwargs):
-        pass
+    def validation(self, **kwargs):
+        return super().validation(**kwargs)
 
-    def delete(self, _id):
-        pass
 
-    def update(self, **kwargs):
-        pass
+class UserManager(InvoiceManager):
+    def __init__(self) -> None:
+        self._TABLE_NAME = 'users'
+        super().__init__(self._TABLE_NAME)
 
     def view(self):
         super().view_all()
 
-    def validation(self, kwargs):
+    def validation(self, **kwargs):
         pass  
