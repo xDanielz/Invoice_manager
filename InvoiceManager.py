@@ -9,7 +9,7 @@ id_val = id_validator(DATA_BASE_NAME)
 class InvoiceManager(DataBaseManager):
 
     def __init__(self) -> None:
-        _TABLE_NAME = 'invoice'
+        _TABLE_NAME = 'register'
         super().__init__(DATA_BASE_NAME, _TABLE_NAME)
 
     def save(self, **kwargs):
