@@ -1,3 +1,4 @@
+import sqlite3
 import DataBaseManager
 from validationstools import *
 from InvoiceExceptions import *
@@ -37,6 +38,20 @@ class RegisterManager(InvoiceManager):
     def __init__(self) -> None:
         self._TABLE_NAME = 'register'
         super().__init__(self._TABLE_NAME)
+        try:
+            self.excsql('''
+                CREATE TABLE register(
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL,
+                    date VARCHAR(10) NOT NULL,
+                    purchase_id VARCHAR(100) NOT NULL,
+                    installments VARCHAR(5) NOT NULL,
+                    price REAL NOT NULL,
+                    FOREIGN KEY (users) REFERENCES users(id)
+                )
+            ''')
+        except sqlite3.OperationalError:
+            pass 
 
     def validation(self, **kwargs):
         if 'user_id' in kwargs:               
