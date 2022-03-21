@@ -25,7 +25,7 @@ class DataBaseManager:
         self.excsql(sql, (_id,))
 
     def update(self, _id, **kwargs):
-        sql = ''' UPDATE {tablename} SET {attrs} WHERE = ? '''
+        sql = ''' UPDATE {tablename} SET {attrs} WHERE ID = ? '''
         attrs = []
 
         for k in kwargs:
