@@ -1,4 +1,4 @@
-from console_ui import console_ui
+from consoleui import console_ui
 
 
 menu_list_01 = ['USUÁRIOS', 'FATURA']

@@ -1,11 +1,10 @@
 from descriptors import UnsignedInteger, UnsignedFloat, SizedString, Date
 import DataBaseManager
-from validationstools import *
-from InvoiceExceptions import *
 
 
 DATA_BASE_NAME = 'INVOICE'
 id_val = id_validator(DATA_BASE_NAME)
+
 
 class InvoiceManager(DataBaseManager):
 
@@ -18,13 +17,9 @@ class InvoiceManager(DataBaseManager):
         super().save(self.obj.__dict__)
             
     def delete(self, _id):
-        if not id_val(_id, self._TABLE_NAME):
-            raise InvalidId('campo "id" inválido')
         super().delete(_id)
 
     def update(self, _id):
-        if not id_val(_id, self._TABLE_NAME):
-            raise InvalidId('campo "id" inválido')
         super().update(_id, self.obj__dict__)
 
     def view(self):
