@@ -31,10 +31,3 @@ def installments_validator(installments):
         return 1
     return 0
 
-def float_validator(number):
-    number = str(number).replace(',', '.')
-    try:
-        number = float(number)
-    except ValueError:
-        return 0
-    return 1
