@@ -1,4 +1,4 @@
-from descriptors import UnsignedInteger, UnsignedFloat, SizedString, Date
+from descriptors import UnsignedInteger, UnsignedFloat, SizedString, Date, Installments
 import DataBaseManager
 
 
