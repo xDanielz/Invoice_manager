@@ -3,7 +3,6 @@ import DataBaseManager
 
 
 DATA_BASE_NAME = 'INVOICE'
-id_val = id_validator(DATA_BASE_NAME)
 
 
 class InvoiceManager(DataBaseManager):
@@ -14,16 +13,16 @@ class InvoiceManager(DataBaseManager):
         super().__init__(DATA_BASE_NAME, self._TABLE_NAME)
 
     def save(self):
-        super().save(self.obj.__dict__)
+        super().save(**self.obj.__dict__)
             
     def delete(self, _id):
         super().delete(_id)
 
     def update(self, _id):
-        super().update(_id, self.obj__dict__)
+        super().update(_id, **self.obj__dict__)
 
     def view(self):
-        return super().view(self.obj.__dict__)
+        return super().view(**self.obj.__dict__)
 
 
 
@@ -32,7 +31,7 @@ class Register():
     date         = Date()
     purchase_id  = SizedString(size=32)
     installments = Installments()
-    price        = UnsignedFloat
+    price        = UnsignedFloat()
 
     def __init__(self, user_id, date, purchase_id, installments, price):
         self.user_id      = user_id
