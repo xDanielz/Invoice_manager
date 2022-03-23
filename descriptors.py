@@ -15,10 +15,10 @@ def installments(cls):
     super_set = cls.__set__
     def __set__(self, instance, value):
         try:
-            paid_out, total = value.split('/')
+            _, _ = [int(val) for val in value.split('/')]
             super_set(self, instance, value)
         except:
-            msg = "installments '{value}' does not match format 'paid_out/total'"
+            msg = f"installments '{value}' does not match format 'paid_out/total'"
             raise ValueError(msg)
     cls.__set__ = __set__ 
     return cls 
@@ -100,10 +100,10 @@ class SizedString(String):
     pass
 
 
-@date()
-class Date():
+@date
+class Date(Descriptor):
     pass
 
 @installments
-class Installments():
+class Installments(Descriptor):
     pass 

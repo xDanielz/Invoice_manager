@@ -2,15 +2,13 @@ from descriptors import UnsignedInteger, UnsignedFloat, SizedString, Date, Insta
 import DataBaseManager
 
 
-DATA_BASE_NAME = 'INVOICE'
+class DbManager(DataBaseManager):
 
-
-class InvoiceManager(DataBaseManager):
-
-    def __init__(self, obj) -> None:
-        self.obj = obj 
-        self._TABLE_NAME = obj.table_name
-        super().__init__(DATA_BASE_NAME, self._TABLE_NAME)
+    def __init__(self, obj, dbname) -> None:
+        self.obj = obj
+        self.dbname = dbname 
+        self.table_name = obj.table_name
+        super().__init__(self.dbname, self.table_name)
 
     def save(self):
         super().save(**self.obj.__dict__)
@@ -27,6 +25,7 @@ class InvoiceManager(DataBaseManager):
 
 
 class Register():
+    table_name   = 'register'
     user_id      = UnsignedInteger()
     date         = Date()
     purchase_id  = SizedString(size=32)
@@ -42,9 +41,10 @@ class Register():
         
     
 class User():
-    name     = SizedString(size=32) 
-    debt     = UnsignedFloat() 
-    paid_out = UnsignedFloat()  
+    table_name = 'user'
+    name       = SizedString(size=32) 
+    debt       = UnsignedFloat() 
+    paid_out   = UnsignedFloat()  
 
     def __init__(self, name, debt, paid_out):
         self.name     = name
