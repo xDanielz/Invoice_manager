@@ -31,8 +31,8 @@ class UserInterface:
                 os.system('pause')
 
             while True:
-                op = input('\nContinuar? [S/N]: ')[0]
-                if op in 'SsNn':
+                op = input('\nContinuar? [S/N]: ')
+                if op in 'S s N n'.split():
                     break
             if op in 'Nn':
                 break 
@@ -69,8 +69,8 @@ class UserInterface:
                 os.system('pause')
 
             while True:
-                op = input('\nContinuar? [S/N]: ')[0]
-                if op in 'SsNn':
+                op = input('\nContinuar? [S/N]: ')
+                if op in 'S s N n'.split():
                     break
             if op in 'Nn':
                 break
@@ -84,7 +84,7 @@ class UserInterface:
 
         op = console_ui(['TODOS', 'FILTRAR'], 'EXIBIR', 'Opção inválida')
         if not op:
-            pt.add_rows(self.dbmanager.view_all())
+            rows = self.dbmanager.view_all()
 
         else:
             while True:
@@ -100,19 +100,21 @@ class UserInterface:
                     
                 try:
                     rows = self.dbmanager.view(**filter)
-                    pt.add_rows(rows)
 
                 except Exception as e:
                     print(e)
 
                 while True:
-                    op = input('\nContinuar? [S/N]: ')[0]
-                    if op in 'SsNn':
+                    op = input('\nContinuar? [S/N]: ')
+                    if op in 'S s N n'.split():
                         break
                 if op in 'Nn':
                     break
-
+        
+        pt.add_rows(rows)
         print(pt)
+        total = sum([value[-1] for value in rows])
+        print(f'\nTOTAL: {total:.2f}\n')
         os.system('pause')
 
     def delete(self, title=None):
