@@ -9,6 +9,8 @@ class UserManager(DataBaseManager):
         super().__init__('INVOICE', 'user')
 
     def save(self, **kwargs):
+        kwargs['debt']     = float(kwargs['debt'])
+        kwargs['paid_out'] = float(kwargs['paid_out'])
         User(**kwargs)
         super().save(**kwargs)
         pass
@@ -22,6 +24,8 @@ class UserManager(DataBaseManager):
                      }
 
         test_dict.update(kwargs)
+        test_dict['debt']     = float(test_dict['debt'])
+        test_dict['paid_out'] = float(test_dict['paid_out'])
         User(**test_dict)
         super().update(_id, **kwargs)
 
@@ -39,11 +43,13 @@ class RegisterManager(DataBaseManager):
         self.user = UserManager()
     
     def save(self, **kwargs):
+        kwargs['price']   = float(kwargs['price'])
+        kwargs['user_id'] = int(kwargs['user_id'])
         Records(**kwargs)
-        user_id = kwargs['user_id'] 
-        price   = float(kwargs['price'])
-        reg     = self.user.view(id=user_id)[0]
-        debt    = float(reg[2]) + price
+        user_id  = kwargs['user_id'] 
+        price    = kwargs['price']
+        reg_user = self.user.view(id=user_id)[0]
+        debt     = float(reg_user[2]) + price
         #Salvando o registro
         super().save(**kwargs)
         #Atualizando o débito
@@ -51,9 +57,9 @@ class RegisterManager(DataBaseManager):
 
     def delete(self, _id):
         reg      = self.view(id=_id)[0]
-        price    = float(reg[-1])
+        price    = reg[-1]
         reg_user = self.user.view(id=reg[1])[0]
-        debt     = float(reg_user[2]) - price 
+        debt     = reg_user[2] - price 
         #Apagando registro
         super().delete(_id)
         #Atualizando o débito
@@ -68,11 +74,13 @@ class RegisterManager(DataBaseManager):
                      'installments': '01/01', 
                      'price'       :  .0}
 
-        test_dict.update(kwargs) 
+        test_dict.update(kwargs)
+        test_dict['price']   = float(test_dict['price'])
+        test_dict['user_id'] = int(test_dict['user_id']) 
         Records(**test_dict) #Validando os dados
         reg          = self.view(id=_id)[0] #Obtendo registro antes de atualizar
         reg_user     = self.user.view_all()
-        price    = float(reg[-1]) #Obtendo preço antes de atualizar
+        price        = float(reg[-1]) #Obtendo preço antes de atualizar
         super().update(_id, **kwargs)
 
         #Atualizando o débito
@@ -87,7 +95,7 @@ class RegisterManager(DataBaseManager):
             self.user.update(new_user[0], debt=debt)
 
         if 'price' in kwargs:
-            new_price = kwargs['price']
+            new_price = float(kwargs['price'])
             new_user = [reg for reg in reg_user if reg[0] == _id][0]
             debt     = float(new_user[2])
             print(debt)
