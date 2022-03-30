@@ -1,11 +1,13 @@
-from sqlite3dbmanager.DataBaseManager import DataBaseManager
-from tables import User, Register
+from InvoiceManager import *
 
 
-userdbman     = DataBaseManager('INVOICE', 'user')
-registerdbman = DataBaseManager('INVOICE', 'register')
+register = RegisterManager()
+user     = UserManager()
 
-user = User('Daniel', .0, .0)
-register = Register(1, '22/04/2001', 'xbox', '06/10', 249.90)
-
-print(registerdbman.view(price=249.90))
+#user.save(name='Matheus', debt=.0, paid_out=.0)
+#user.delete(_id=1)
+#register.save(user_id=1, date='22/04/2001', purchase_id='teste', installments='05/10', price=100.0)
+#register.delete(1)
+#register.update(1, user_id=1)
+print(register.view_all())
+print(user.view_all())
