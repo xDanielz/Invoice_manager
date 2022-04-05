@@ -1,39 +1,49 @@
-from InvoiceManager import *
-from consoleui import *
+from console_ui import *
+import os 
 
-register = RegisterManager()
-user     = UserManager()
 
-user_ui = UserInterface(user, {
-    'Nome'  : 'name', 
-    'Débito': 'debt', 
-    'Pagou' : 'paid_out'
-    })
+TITLE = 'GERENCIADOR DE FATURA'
 
-register_ui = UserInterface(register, {
-    'ID de Usuário'          : 'user_id', 
-    'Data'                   : 'date', 
-    'Identificação de Compra': 'purchase_id', 
-    'Parcelas'               : 'installments', 
-    'Valor'                  : 'price'
-    })
+MENU0 = ['USUÁRIO', 'REGISTROS', 'RESUMO DA FATURA', 'SAIR']
+
+MENU1 = {
+    'ADICIONAR USUÁRIO': add_user, 
+    'REMOVER USUÁRIO': delete_user, 
+    'VER USUÁRIOS': view_all_users, 
+    'ALTERAR NOME DE USUÁRIO': change_user_name, 
+    'ADICIONAR SALDO AO USUÁRIO': increase_balance, 
+    'SUBTRAIR SALDO DO USUÁRIO': decrease_balance, 
+}
+
+MENU2 = {
+    'ADICIONAR REGISTRO': add_register, 
+    'REMOVER REGISTRO': delete_register, 
+    'VER REGISTROS': view_all_register, 
+    'ALTERAR REGISTRO': update_register, 
+}
+
+MENUS = [MENU1, MENU2]
 
 if __name__ == '__main__':
     while True:
-        tables = [register_ui, user_ui]
-        error_msg = 'Opção inválida'
-        menu1 = (['REGISTROS', 'USUÁRIOS', 'SAIR'], 'GERENCIADOR DE FATURA', error_msg)
-        op1 = console_ui(*menu1)
+        os.system('cls')
+        op = console_ui(MENU0, TITLE, 'Valor inválido')
 
-        if op1 == len(menu1[0]) - 1:
-            break 
+        if op == 'SAIR':
+            break
+        if op == 'RESUMO DA FATURA':
+            os.system('cls')
+            view_register_summary()
+            os.system('pause')
+            continue 
 
-        table = tables[op1]
-        methods = [table.save, table.delete, table.update, table.view]
-        menu2 = (['ADICIONAR', 'REMOVER', 'ALTERAR', 'EXIBIR', 'VOLTAR'], menu1[0][op1], error_msg)
-        op2 = console_ui(*menu2)
-
-        if op2 == len(menu2[0]) - 1:
+        op = MENU0.index(op)
+        sub_menu = list(MENUS[op].keys())
+        sub_menu.append('VOLTAR')
+        op2 = console_ui(sub_menu, MENU0[op], 'Valor inválido')
+        if op2 == 'VOLTAR':
             continue
-
-        methods[op2](f'{menu2[0][op2]} {menu1[0][op1]}')
+        os.system('cls')
+        MENUS[op][op2]()
+        os.system('pause')
+        

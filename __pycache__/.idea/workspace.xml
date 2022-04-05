@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="57866bb1-555c-41a2-96ce-247f29b85546" name="Changes" comment="" />
+    <list default="true" id="8231cded-1d6b-47b3-82bf-55696717ecc5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/INVOICE" beforeDir="false" afterPath="$PROJECT_DIR$/INVOICE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InvoiceManager.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UseSqlite3db.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/console_ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/console_ui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/verification_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/verification_tools.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,7 +17,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="26WeHHTdaEmkbDfUHSuoD2E3kai" />
+  <component name="ProjectId" id="27L12XlrpWNb8WKvDysNXdfMxM6" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -21,15 +25,16 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="57866bb1-555c-41a2-96ce-247f29b85546" name="Changes" comment="" />
-      <created>1647543681312</created>
+      <changelist id="8231cded-1d6b-47b3-82bf-55696717ecc5" name="Changes" comment="" />
+      <created>1649084345534</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1647543681312</updated>
+      <updated>1649084345534</updated>
     </task>
     <servers />
   </component>

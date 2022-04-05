@@ -24,3 +24,13 @@ def cursor_exc(dbname: str) -> 'function':
             cursor.execute(*args)
 
     return func
+
+def colunm_exist(dbname, tablename):
+    def func(colunm_name, value):
+        with UseSqlite3db(dbname) as cursor:
+            sql = f'''SELECT {colunm_name} FROM {tablename} WHERE {colunm_name} = {value}'''
+            data = cursor.execute(sql).fetchone()
+            if data is None:
+                raise ValueError(f'{colunm_name} {value} Inexistente') 
+    return func
+
