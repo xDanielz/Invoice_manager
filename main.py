@@ -18,8 +18,9 @@ MENU1 = {
 MENU2 = {
     'ADICIONAR REGISTRO': add_register, 
     'REMOVER REGISTRO': delete_register, 
-    'VER REGISTROS': view_all_register, 
-    'ALTERAR REGISTRO': update_register, 
+    'VER TODOS OS REGISTROS': view_all_register,
+    'VER REGISTROS DE UM USUÁRIO': view_user, 
+    'ALTERAR REGISTRO': update_register
 }
 
 MENUS = [MENU1, MENU2]

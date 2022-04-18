@@ -67,7 +67,7 @@ def update_register():
 def change_user_name():
     print('ALTERAR NOME DE USUÁRIO\n')
     _id = verification(lambda num: num.isnumeric(), 'ID: ', 'Valor inválido')
-    name = input('Novo Nome: ')
+    name = input('Novo Nome: ').upper()
     answer = proceed('S s N n'.split(), f'ALTERAR NOME DO USUÁRIO {_id} ?[S|N]: ')
     if answer in 'Ss':
         try:
@@ -145,7 +145,14 @@ def view_all_users():
     pt = PrettyTable(['ID', 'NOME', 'SALDO'])
     pt.add_rows(_user.view_users())
     print(pt)
-     
+
+def view_user():
+    print('REGISTROS\n')
+    name = input('Informe o nome do usuário: ').upper()
+    pt = PrettyTable(['ID', 'DATA', 'COMPRA_ID', 'PARCELAS', 'VALOR'])
+    rows = _register.filtered_view(name=name)
+    pt.add_rows(rows)
+    print(pt)
 
 def console_ui(menu_list: list, title: str, error_msg: str) -> int:
     while True:
